@@ -1,5 +1,5 @@
 # MongoDB Syntax
-## MongoDB Compass ()
+## MongoDB Compass (Database GUI)
 ## MongoDB Atlas (Cloud Database)
 
 ## BASIC COMMANDS
