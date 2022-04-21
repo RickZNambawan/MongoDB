@@ -8,6 +8,7 @@ show dbs - show all databases
 use <dbname> - to create new database or to use it.
 show collections - to show all the tables in database
 db.createCollection('<collectionName>')
+db.<collection>.drop() - to delete collection
 db.dropDatabase() - to delete database
 
 ## CREATE
@@ -76,6 +77,7 @@ $rename - Rename a field
 $unset - Remove a field
 $push - Add a value to an array field
 $pull - Remove a value from an array field
+$each - Add many values to an array
 $$
 
 ## Complex Querying Object Operator
