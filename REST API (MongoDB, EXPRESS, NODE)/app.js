@@ -1,5 +1,4 @@
 const express = require('express');
-const req = require('express/lib/request');
 const { ObjectId } = require('mongodb');
 const { connection, getDatabase } = require('./db');
 
@@ -7,9 +6,7 @@ const { connection, getDatabase } = require('./db');
 const app = express();
 app.use(express.json());
 
-// db connection && 
-// middleware
-
+// db connection && middleware
 let db;
 connection(err => {
     if(!err) {
@@ -28,11 +25,9 @@ app.post('/books', (req, res) => {
     db.collection('books')
     .insertOne(book)
     .then(data => {
-        res.status(500).json(data);
+        res.status(200).json(data);
     })
-    .catch(() => {
-        res.status(500).json({error: 'Cannot create doc!'});   
-    });
+    .catch(() => res.status(500).json({error: 'Cannot create doc!'}));
 });
 
 // READ
@@ -64,9 +59,8 @@ app.delete('/books', (req, res) => {
     const bookId = req.body;
     db.collection('books')
     .deleteOne({_id: ObjectId(bookId._id)})
-    .then(book => {
-        res.status(200).json(book);
-    }).catch(() => res.status(500).json({error: 'Could not delete doc'}));
+    .then(book => res.status(200).json(book))
+    .catch(() => res.status(500).json({error: 'Could not delete doc'}));
 });
 
 // PATCH
@@ -78,9 +72,8 @@ app.patch('/books/id/:id', (req, res) => {
             _id: ObjectId(req.params.id)
         }, {
             $set: updates
-        }).then(result => {
-            res.status(200).json(result);
-        }).catch(() => res.status(500).json({error: "Cannot update doc!"}))
+        }).then(result => res.status(200).json(result))
+        .catch(() => res.status(500).json({error: "Cannot update doc!"}))
     } else {
         res.status(500).json({error: 'Not a valid document id!'});
     }
